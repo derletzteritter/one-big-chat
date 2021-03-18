@@ -2,10 +2,7 @@
   "compilerOptions": {
     "target": "ESNext",
     "module": "ESNext",
-    "lib": [
-      "ESNext",
-      "DOM"
-    ],
+    "lib": ["ESNext", "DOM"],
     "esModuleInterop": true,
     "noImplicitAny": true,
     "allowSyntheticDefaultImports": true,
@@ -19,10 +16,6 @@
     "resolveJsonModule": true,
     "jsx": "preserve"
   },
-  "include": [
-    "pages"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["pages"],
+  "exclude": ["node_modules"]
 }
