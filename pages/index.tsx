@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <div className="flex items-center justify-center h-screen bg-pink-500">
       <Head>
-        <title>Create Next App</title>
+        <title>One Big Chat - Login</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
