@@ -4,6 +4,13 @@ import { useState } from 'react';
 export default function Home() {
   const [name, setName] = useState('');
 
+  const handleClick = async () => {
+    const res = await fetch('/api/chat', {
+      method: 'POST',
+      body: JSON.stringify({ message: 'Fuck you' }),
+    });
+  };
+
   return (
     <div className="flex items-center justify-center h-screen bg-pink-500">
       <Head>
@@ -24,7 +31,10 @@ export default function Home() {
           />
         </div>
         <div className="text-center">
-          <button className="text-white font-medium bg-pink-300 mt-2 p-2 rounded w-52 shadow">
+          <button
+            className="text-white font-medium bg-pink-300 mt-2 p-2 rounded w-52 shadow"
+            onClick={handleClick}
+          >
             Chat
           </button>
         </div>
