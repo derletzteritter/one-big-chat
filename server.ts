@@ -10,7 +10,11 @@ const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
   const server = express();
-  const httpServer = server.all('*', (req, res) => {
+  const httpServer: http.Server = http.createServer(server);
+  const socket: io.Server = new io.Server();
+  socket.attach(httpServer);
+
+  server.all('*', (req, res) => {
     return handle(req, res);
   });
 
