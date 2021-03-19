@@ -12,7 +12,17 @@ app.prepare().then(() => {
   const server = express();
   const httpServer: http.Server = http.createServer(server);
   const socket: io.Server = new io.Server();
-  socket.attach(httpServer);
+
+  server.get('/chat', (req, res) => {
+    socket.on('connection', (socketio: io.Socket) => {
+      console.log('connection');
+      socketio.emit('status', 'Hello from custom server');
+
+      socketio.on('disconnect', () => {
+        console.log('client disconnect');
+      });
+    });
+  });
 
   server.all('*', (req, res) => {
     return handle(req, res);
