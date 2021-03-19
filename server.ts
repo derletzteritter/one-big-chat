@@ -1,5 +1,7 @@
-import express from 'express';
+import express, { Express, Request, Response } from 'express';
+import * as http from 'http';
 import next from 'next';
+import io from 'socket.io';
 
 const port = 3000;
 const dev = process.env.NODE_ENV !== 'production';
@@ -8,8 +10,7 @@ const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
   const server = express();
-
-  server.all('*', (req, res) => {
+  const httpServer = server.all('*', (req, res) => {
     return handle(req, res);
   });
 
