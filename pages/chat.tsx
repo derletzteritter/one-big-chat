@@ -1,7 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Head from 'next/head';
+import { io } from 'socket.io-client';
 
 export default function Chat() {
+  useEffect(() => {
+    const socket = io('http://localhost:3000');
+
+    console.log(socket);
+  });
+
   return (
     <div className="flex items-center justify-center h-screen bg-pink-500">
       <Head>
