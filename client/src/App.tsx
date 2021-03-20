@@ -1,32 +1,52 @@
-import React, { useEffect } from 'react';
-import logo from './logo.svg';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import { io } from 'socket.io-client';
 
+let socket: any;
+
 function App() {
+  const [message, setMessage] = useState('');
+  const [messages, setMessages] = useState<any[]>([]);
+  const ENDPOINT = 'http://localhost:5000';
+
+  // connecting the user
   useEffect(() => {
-    const socket = io('http://localhost:5000', {
+    socket = io(ENDPOINT, {
       transports: ['websocket'],
     });
 
-    socket.emit('join', { message: 'Hello from client' });
+    return () => {
+      socket.off();
+    };
   }, []);
+
+  // getting sent messages
+  useEffect(() => {
+    socket.on('chatMessage', (msg: any) => {
+      setMessages((msgs) => [...msgs, msg]);
+    });
+  }, []);
+
+  // sending new messages
+  const sendMessage = () => {
+    if (message !== '') {
+      socket.emit('message', message);
+      setMessage('');
+    }
+  };
 
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        {messages.map((msg) => (
+          <p>{msg}</p>
+        ))}
+        <input
+          value={message}
+          onChange={(e) => setMessage(e.currentTarget.value)}
+          placeholder="Message..."
+        />
+        <button onClick={sendMessage}>Send message</button>
       </header>
     </div>
   );
