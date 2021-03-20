@@ -1,8 +1,5 @@
 node_modules
-.next
-.husky
 .idea
 build
 dist
 coverage
-out
