@@ -5,6 +5,24 @@
   font-family: 'Rubik', sans-serif;
 }
 
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: rgba(31, 41, 55, 1);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background-color: rgba(67, 56, 202, 1);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #b30000;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
