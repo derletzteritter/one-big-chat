@@ -39,6 +39,7 @@ io.sockets.on('connection', (socket: any) => {
     // send message to everyone, except source
     socket.broadcast.emit('chatMessage', {
       message: `${username} has joined!`,
+      username: 'System',
     });
   });
 
