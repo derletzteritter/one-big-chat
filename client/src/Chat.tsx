@@ -48,9 +48,9 @@ function Chat() {
   }, []);
 
   useEffect(() => {
-    socket.on('users', (u: any) => {
+    socket.on('users.ts', (u: any) => {
       setUsers(u);
-      console.log('users');
+      console.log('users.ts');
     });
   }, []);
 
