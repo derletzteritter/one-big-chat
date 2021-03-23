@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 import http from 'http';
 import { Server } from 'socket.io';
 import cors from 'cors';
+import { users, removeUser } from './functions/user';
 
 const app = express();
 const server = http.createServer(app);
@@ -9,15 +10,7 @@ const io = new Server(server);
 
 const PORT = process.env.PORT || 5000;
 
-let users: any[] = [];
-
 app.use(cors());
-
-const removeUser = (name: string) => {
-  const index = users.findIndex((user) => user === name);
-
-  if (index !== -1) return users.splice(index, 1)[0];
-};
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello world');
@@ -36,7 +29,7 @@ io.sockets.on('connection', (socket: any) => {
   socket.on('join', (username: string) => {
     socket.username = username;
     users.push(socket.username);
-    io.emit('users', users);
+    io.emit('users.ts', users);
 
     // send message to everyone, except source
     socket.broadcast.emit('chatMessage', {
