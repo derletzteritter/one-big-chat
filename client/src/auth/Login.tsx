@@ -3,13 +3,8 @@ import { useHistory } from 'react-router-dom';
 
 function Login() {
   const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const history = useHistory();
-
-  useEffect(() => {
-    if (window.localStorage.getItem('one_big_chat:username')) {
-      history.push('/chat');
-    }
-  }, []);
 
   const handleLogin = () => {
     if (username !== '') {
@@ -28,8 +23,15 @@ function Login() {
           value={username}
           onChange={(e) => setUsername(e.currentTarget.value)}
           placeholder="Username"
-          className="p-3 rounded mt-4 font-medium outline-none"
+          className="p-2 rounded mt-4 font-regular outline-none text-gray-500"
           type="text"
+        />
+        <input
+          value={password}
+          onChange={(e) => setPassword(e.currentTarget.value)}
+          placeholder="Password"
+          className="p-2 rounded mt-4 font-regular outline-none text-gray-500"
+          type="password"
         />
         <button
           className="text-white p-2 rounded mt-4 bg-indigo-500 hover:bg-indigo-400 outline-none font-medium"
