@@ -26,6 +26,10 @@ io.sockets.on('connection', (socket: any) => {
     },
   );
 
+  socket.on('typing', (username: string) => {
+    socket.broadcast.emit('isTyping', { message: `${username} is typing` });
+  });
+
   socket.on('join', (username: string) => {
     socket.username = username;
     users.push(socket.username);

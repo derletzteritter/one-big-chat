@@ -24,6 +24,13 @@ function Chat() {
     }
   }, []);
 
+  // If typing...
+  const handleMesssageChange = (e: any) => {
+    setMessage(e.currentTarget.value);
+
+    socket.emit('typing', myUsername);
+  };
+
   // connecting the user
   useEffect(() => {
     socket = io(ENDPOINT, {
@@ -94,7 +101,7 @@ function Chat() {
             <div className="bg-gray-500 flex flex-row">
               <input
                 value={message}
-                onChange={(e) => setMessage(e.currentTarget.value)}
+                onChange={(e) => handleMesssageChange(e)}
                 placeholder="Message"
                 className="w-full p-3 bg-gray-500 outline-none text-white"
                 onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
