@@ -1,6 +1,6 @@
 import { getConnectionManager, ConnectionManager, Connection } from 'typeorm';
 
-const connectionManager = getConnectionManager();
+/* const connectionManager = getConnectionManager();
 const connection = connectionManager.create({
   type: 'mysql',
   host: process.env.DB_HOST || 'localhost',
@@ -11,3 +11,4 @@ const connection = connectionManager.create({
 });
 
 await connection.connect();
+ */
