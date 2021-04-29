@@ -6,6 +6,7 @@ import {
   Redirect,
 } from 'react-router-dom';
 import Login from './auth/Login';
+import Register from './auth/Register';
 import Chat from './Chat';
 
 function App() {
@@ -15,7 +16,10 @@ function App() {
       <Router>
         <Switch>
           {!isPassword ? (
-            <Route path="/" exact component={Login} />
+            <div>
+              <Route path="/" exact component={Login} />
+              <Route path="/signup" component={Register} />
+            </div>
           ) : (
             <Route path="/chat" component={Chat} />
           )}

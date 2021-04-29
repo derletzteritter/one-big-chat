@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { io } from 'socket.io-client';
 import { BiSend, BiLogOut } from 'react-icons/bi';
-import userEvent from '@testing-library/user-event';
 import { useHistory } from 'react-router-dom';
 
 let socket: any;
