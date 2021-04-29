@@ -1,12 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-function Login() {
+function Register() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const history = useHistory();
 
-  const handleLogin = () => {};
+  const handleRegister = async () => {
+    console.log(username, password);
+
+    const res = await fetch('http://localhost:5000/signup', {
+      method: 'POST',
+      body: JSON.stringify({ username, password }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const data = await res.json();
+    console.log(data);
+  };
 
   return (
     <div className="bg-gray-900 flex items-center justify-center h-screen">
@@ -30,18 +42,18 @@ function Login() {
         />
         <button
           className="text-white p-2 rounded mt-4 bg-indigo-500 hover:bg-indigo-400 outline-none font-medium"
-          onClick={handleLogin}
+          onClick={handleRegister}
         >
-          Login
+          Register
         </button>
         <p className="text-white mt-3">
-          Don't have an account?
+          Already have an account?
           <span
             className="text-indigo-500 font-medium cursor-pointer"
-            onClick={() => history.push('/signup')}
+            onClick={() => history.push('/')}
           >
             {' '}
-            Sign up!
+            Log in
           </span>
         </p>
       </div>
@@ -49,4 +61,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;
