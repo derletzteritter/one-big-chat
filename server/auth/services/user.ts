@@ -46,7 +46,9 @@ export const createLogin = async (
     const result = <User[]>results;
     const user = result[0];
 
-    if (user) {
+    const resultPass = await bcrypt.compare(password, user.password);
+
+    if (resultPass) {
       return user;
     }
   } catch (err) {
