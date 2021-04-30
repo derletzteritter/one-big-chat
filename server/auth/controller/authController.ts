@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { TreeRepositoryNotSupportedError } from 'typeorm';
 import { User } from '../../typings/user';
 import { promisePool } from '../../utils/db';
 import { createToken, maxAge } from '../lib/tokens';
@@ -10,11 +11,15 @@ export const handleSignup = async (req: Request, res: Response) => {
     const user = await createUser(username, password);
 
     const token = createToken(user.uid);
-    res.cookie('onebigchat', token, {
+    res.cookie('jwt', token, {
+      httpOnly: true,
       maxAge: maxAge * 1000,
+      sameSite: true,
     });
+    console.log(token);
+    console.log(user.uid);
 
-    res.status(200).json({ user: user.uid });
+    res.status(201).json({ user: user.uid });
   } catch (err) {
     console.log(err.message);
   }
