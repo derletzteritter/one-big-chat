@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
+import { User } from '../../typings/user';
+import { promisePool } from '../../utils/db';
 import { createToken, maxAge } from '../lib/tokens';
-import { createUser } from '../services/user';
+import { createLogin, createUser } from '../services/user';
 
 export const handleSignup = async (req: Request, res: Response) => {
   const { username, password } = req.body;
@@ -13,6 +15,15 @@ export const handleSignup = async (req: Request, res: Response) => {
     });
 
     res.status(200).json({ user: user.uid });
+  } catch (err) {
+    console.log(err.message);
+  }
+};
+
+const handleLogin = async (req: Request, res: Response) => {
+  const { username, password } = req.body;
+  try {
+    const user = createLogin(username, password);
   } catch (err) {
     console.log(err.message);
   }
