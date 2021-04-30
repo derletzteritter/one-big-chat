@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { BiTrendingUp } from 'react-icons/bi';
 import { useHistory } from 'react-router-dom';
 
 function Register() {
@@ -12,6 +13,7 @@ function Register() {
     const res = await fetch('http://localhost:5000/signup', {
       method: 'POST',
       body: JSON.stringify({ username, password }),
+      credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
       },
