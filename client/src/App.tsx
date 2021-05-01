@@ -1,27 +1,30 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   BrowserRouter as Router,
   Route,
   Switch,
   Redirect,
 } from 'react-router-dom';
+import { useAuth } from './auth/hooks/useAuth';
 import Login from './auth/Login';
 import Register from './auth/Register';
 import Chat from './Chat';
 
 function App() {
-  const isPassword = window.localStorage.getItem('one_big_chat:username');
+  const { user } = useAuth();
+  console.log(user);
+
   return (
     <div>
       <Router>
         <Switch>
-          {!isPassword ? (
+          {!user ? (
             <div>
               <Route path="/" exact component={Login} />
               <Route path="/signup" component={Register} />
             </div>
           ) : (
-            <Route path="/chat" component={Chat} />
+            <Route path="/chat" exact component={Chat} />
           )}
           <Redirect to="/" />
         </Switch>
