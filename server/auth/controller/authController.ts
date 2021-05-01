@@ -30,6 +30,7 @@ export const handleLogin = async (req: Request, res: Response) => {
       httpOnly: true,
       maxAge: maxAge * 1000,
     });
+    res.status(200).json({ user: user.uid });
   } catch (err) {
     console.log(err.message);
   }
