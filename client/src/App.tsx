@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   BrowserRouter as Router,
   Route,
@@ -11,7 +11,17 @@ import Register from './auth/Register';
 import Chat from './Chat';
 
 function App() {
-  const user = useAuth();
+  const { user, setUser } = useAuth();
+
+  // check if the user has a token
+  useEffect(() => {
+    fetch('http://localhost:5000/user', {
+      credentials: 'include',
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+  }, []);
+
   return (
     <div>
       <Router>
