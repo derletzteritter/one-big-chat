@@ -11,7 +11,7 @@ import Register from './auth/Register';
 import Chat from './Chat';
 
 function App() {
-  const user = true;
+  const user = useAuth();
   return (
     <div>
       <Router>
@@ -25,7 +25,7 @@ function App() {
           ) : (
             <div>
               <Route path="/chat" exact component={Chat} />
-              <Redirect to="/chat" />
+              <Redirect to="/" />
             </div>
           )}
         </Switch>
