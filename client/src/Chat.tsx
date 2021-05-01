@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { io } from 'socket.io-client';
 import { BiSend, BiLogOut } from 'react-icons/bi';
 import { useHistory } from 'react-router-dom';
+import { useAuth } from './auth/hooks/useAuth';
 
 let socket: any;
 
@@ -9,13 +10,15 @@ function Chat() {
   const [message, setMessage] = useState('');
   const [users, setUsers] = useState<any[]>([]);
   const [messages, setMessages] = useState<any[]>([]);
+  const { user } = useAuth();
 
   const messageEndRef = useRef(null);
 
   const history = useHistory();
 
   const myUsername = window.localStorage.getItem('one_big_chat:username');
-  const ENDPOINT = 'https://one-chat-big-backend.herokuapp.com';
+  const ENDPOINT =
+    'https://localhost:5000'; /* 'https://one-chat-big-backend.herokuapp.com'; */
 
   /*   useEffect(() => {
     if (!window.localStorage.getItem('one_big_chat:username')) {
@@ -84,7 +87,7 @@ function Chat() {
           </div>
           <div className="bg-gray-500 p-3 border-r border-gray-400 flex justify-between">
             <button>{<BiLogOut size={24} color="white" />}</button>
-            <h2 className="text-white font-medium">{myUsername}</h2>
+            <h2 className="text-white font-medium">{user}</h2>
           </div>
         </div>
         <div className="bg-gray-500 flex-1 flex justify-between">

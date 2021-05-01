@@ -11,9 +11,7 @@ import Register from './auth/Register';
 import Chat from './Chat';
 
 function App() {
-  const { user } = useAuth();
-  console.log(user);
-
+  const user = true;
   return (
     <div>
       <Router>
@@ -22,11 +20,14 @@ function App() {
             <div>
               <Route path="/" exact component={Login} />
               <Route path="/signup" component={Register} />
+              <Redirect to="/" />
             </div>
           ) : (
-            <Route path="/chat" exact component={Chat} />
+            <div>
+              <Route path="/chat" exact component={Chat} />
+              <Redirect to="/chat" />
+            </div>
           )}
-          <Redirect to="/" />
         </Switch>
       </Router>
     </div>

@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { setTokenSourceMapRange } from 'typescript';
 import { useAuth } from './hooks/useAuth';
 
 function Register() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const history = useHistory();
-  const { setUser } = useAuth();
+  const { user, setUser } = useAuth();
 
   const handleRegister = async () => {
-    console.log(username, password);
-
     const res = await fetch('http://localhost:5000/signup', {
       method: 'POST',
       body: JSON.stringify({ username, password }),
@@ -21,12 +18,13 @@ function Register() {
       },
     });
     const data = await res.json();
+    console.log('USER: ', data.user);
 
-    if (data.user) {
+    if (data) {
       setUser(data.user);
       history.push('/chat');
+      console.log(user);
     }
-    console.log(data);
   };
 
   return (
