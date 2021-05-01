@@ -20,10 +20,16 @@ export const handleSignup = async (req: Request, res: Response) => {
   }
 };
 
-const handleLogin = async (req: Request, res: Response) => {
+export const handleLogin = async (req: Request, res: Response) => {
   const { username, password } = req.body;
   try {
-    const user = createLogin(username, password);
+    const user = await createLogin(username, password);
+
+    const token = createToken(user.uid);
+    res.cookie('onebigchat', token, {
+      httpOnly: true,
+      maxAge: maxAge * 1000,
+    });
   } catch (err) {
     console.log(err.message);
   }
