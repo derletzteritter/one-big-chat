@@ -25,7 +25,7 @@ function App() {
           ) : (
             <div>
               <Route path="/chat" exact component={Chat} />
-              <Redirect to="/" />
+              <Redirect to="/chat" />
             </div>
           )}
         </Switch>
