@@ -36,22 +36,19 @@ export const getUser = async (id: number): Promise<any> => {
 export const createLogin = async (
   username: string,
   password: string,
-): Promise<any> => {
-  try {
-    const [
-      results,
-    ] = await promisePool.query(`SELECT * FROM users WHERE username = ?`, [
-      username,
-    ]);
-    const result = <User[]>results;
-    const user = result[0];
+): Promise<User> => {
+  const [
+    results,
+  ] = await promisePool.query(`SELECT * FROM users WHERE username = ?`, [
+    username,
+  ]);
+  const result = <User[]>results;
+  const user = result[0];
+  const resultPass = await bcrypt.compare(password, user.password);
 
-    const resultPass = await bcrypt.compare(password, user.password);
-
-    if (resultPass) {
-      return user;
-    }
-  } catch (err) {
-    console.log(err.message);
+  if (resultPass) {
+    return user;
+  } else {
+    return user;
   }
 };
