@@ -35,3 +35,8 @@ export const handleLogin = async (req: Request, res: Response) => {
     console.log(err.message);
   }
 };
+
+export const getUser = (req: Request, res: Response) => {
+  const cookie = req.cookies.jottings;
+  console.log(cookie);
+};
