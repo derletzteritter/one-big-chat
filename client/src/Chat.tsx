@@ -20,12 +20,6 @@ function Chat() {
   const ENDPOINT =
     'https://localhost:5000'; /* 'https://one-chat-big-backend.herokuapp.com'; */
 
-  /*   useEffect(() => {
-    if (!window.localStorage.getItem('one_big_chat:username')) {
-      history.push('/');
-    }
-  }, []); */
-
   // If typing...
   const handleMesssageChange = (e: any) => {
     setMessage(e.currentTarget.value);
