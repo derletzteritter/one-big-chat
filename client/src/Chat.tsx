@@ -14,8 +14,6 @@ function Chat() {
 
   const messageEndRef = useRef(null);
 
-  const history = useHistory();
-
   const myUsername = window.localStorage.getItem('one_big_chat:username');
   const ENDPOINT =
     'https://localhost:5000'; /* 'https://one-chat-big-backend.herokuapp.com'; */
