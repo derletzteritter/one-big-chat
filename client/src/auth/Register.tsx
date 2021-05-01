@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { BiTrendingUp } from 'react-icons/bi';
 import { useHistory } from 'react-router-dom';
+import { setTokenSourceMapRange } from 'typescript';
+import { useAuth } from './hooks/useAuth';
 
 function Register() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const history = useHistory();
+  const { setUser } = useAuth();
 
   const handleRegister = async () => {
     console.log(username, password);
@@ -19,6 +21,11 @@ function Register() {
       },
     });
     const data = await res.json();
+
+    if (data.user) {
+      setUser(data.user);
+      history.push('/chat');
+    }
     console.log(data);
   };
 

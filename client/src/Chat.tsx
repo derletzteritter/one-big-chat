@@ -17,11 +17,11 @@ function Chat() {
   const myUsername = window.localStorage.getItem('one_big_chat:username');
   const ENDPOINT = 'https://one-chat-big-backend.herokuapp.com';
 
-  useEffect(() => {
+  /*   useEffect(() => {
     if (!window.localStorage.getItem('one_big_chat:username')) {
       history.push('/');
     }
-  }, []);
+  }, []); */
 
   // If typing...
   const handleMesssageChange = (e: any) => {
