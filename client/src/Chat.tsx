@@ -16,7 +16,7 @@ function Chat() {
 
   const myUsername = window.localStorage.getItem('one_big_chat:username');
   const ENDPOINT =
-    'https://localhost:5000'; /* 'https://one-chat-big-backend.herokuapp.com'; */
+    'http://localhost:5000'; /* 'https://one-chat-big-backend.herokuapp.com'; */
 
   // If typing...
   const handleMesssageChange = (e: any) => {
@@ -55,12 +55,32 @@ function Chat() {
     });
   }, []);
 
+  useEffect(() => {
+    fetch('http://localhost:5000/getcreds', {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+  });
+
   // sending new messages
   const sendMessage = () => {
     if (message !== '') {
       socket.emit('message', { message, username: myUsername });
       setMessage('');
     }
+  };
+
+  const handleLogout = async () => {
+    await fetch('http://localhost:5000/logout', {
+      method: 'GET',
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
   };
 
   return (
@@ -78,7 +98,9 @@ function Chat() {
             </div>
           </div>
           <div className="bg-gray-500 p-3 border-r border-gray-400 flex justify-between">
-            <button>{<BiLogOut size={24} color="white" />}</button>
+            <button onClick={handleLogout}>
+              {<BiLogOut size={24} color="white" />}
+            </button>
             <h2 className="text-white font-medium">{user}</h2>
           </div>
         </div>
