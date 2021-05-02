@@ -16,11 +16,14 @@ function App() {
   // check if the user has a token
   useEffect(() => {
     fetch('http://localhost:5000/user', {
+      method: 'POST',
       credentials: 'include',
     })
       .then((res) => res.json())
-      .then((data) => console.log(data));
+      .then((data) => setUser(data.user));
   }, []);
+
+  // Should probably do this somewhere else later.
 
   return (
     <div>
