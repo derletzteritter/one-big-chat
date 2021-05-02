@@ -1,12 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useAuth } from './hooks/useAuth';
 
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const history = useHistory();
+  const { user, setUser } = useAuth();
 
-  const handleLogin = () => {};
+  const handleLogin = async () => {
+    const res = await fetch('http://localhost:5000/login', {
+      method: 'POST',
+      body: JSON.stringify({ username, password }),
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    const data = await res.json();
+    console.log('USER: ', data.user);
+
+    if (data) {
+      setUser(data.user);
+      history.push('/chat');
+      console.log(user);
+    }
+  };
 
   return (
     <div className="bg-gray-900 flex items-center justify-center h-screen">
