@@ -1,8 +1,11 @@
-import { Request, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { User } from '../../typings/user';
 import { promisePool } from '../../utils/db';
 import { createToken, maxAge } from '../lib/tokens';
 import { createLogin, createUser } from '../services/user';
+import jwt, { JsonWebTokenError } from 'jsonwebtoken';
+import { getCredentials } from '../lib/user';
+import { ReplSet } from 'typeorm';
 
 export const handleSignup = async (req: Request, res: Response) => {
   const { username, password } = req.body;
@@ -36,7 +39,22 @@ export const handleLogin = async (req: Request, res: Response) => {
   }
 };
 
-export const getUser = (req: Request, res: Response) => {
-  const cookie = req.cookies.jottings;
-  console.log(cookie);
+export const handleLogout = (req: Request, res: Response) => {
+  res.cookie('onebigchat', '', {
+    maxAge: 1,
+  });
+  res.status(200).json({ user: 'helllo' });
+  res.redirect('/');
+};
+
+export const handleUser = async (req: Request, res: Response) => {
+  const token = req.cookies.onebigchat;
+
+  if (token) {
+    jwt.verify(token, 'bigchatsmallchat', async (err: any, dToken: any) => {
+      console.log(dToken);
+      //const user = await getCredentials(dToken.uid);
+      res.status(200).json({ user: dToken.uid });
+    });
+  }
 };
