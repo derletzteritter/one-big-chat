@@ -5,12 +5,12 @@ export const checkUser = async () => {
   return 'username';
 };
 
-export const getCredentials = async (username: string): Promise<User> => {
+export const getCredentials = async (uid: string): Promise<string> => {
   const [
     results,
-  ] = await promisePool.query(`SELECT * FROM users WHERE username = ?`, [
-    username,
+  ] = await promisePool.query(`SELECT username FROM users WHERE uid = ?`, [
+    uid,
   ]);
   const result = <User[]>results;
-  return result[0];
+  return result[0].username;
 };
