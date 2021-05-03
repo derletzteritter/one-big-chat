@@ -10,20 +10,14 @@ function Chat() {
   const [message, setMessage] = useState('');
   const [users, setUsers] = useState<any[]>([]);
   const [messages, setMessages] = useState<any[]>([]);
+  const [username, setUsername] = useState('');
+  const [typing, setTyping] = useState('');
   const { user } = useAuth();
 
   const messageEndRef = useRef(null);
 
-  const myUsername = window.localStorage.getItem('one_big_chat:username');
   const ENDPOINT =
     'http://localhost:5000'; /* 'https://one-chat-big-backend.herokuapp.com'; */
-
-  // If typing...
-  const handleMesssageChange = (e: any) => {
-    setMessage(e.currentTarget.value);
-
-    socket.emit('typing', myUsername);
-  };
 
   // connecting the user
   useEffect(() => {
@@ -31,12 +25,29 @@ function Chat() {
       transports: ['websocket'],
     });
 
-    socket.emit('join', myUsername);
+    socket.emit('join', username);
 
     return () => {
-      socket.disconnect(myUsername);
+      socket.disconnect(username);
       socket.off();
     };
+  }, [username]);
+
+  // If typing...
+  const handleMesssageChange = (e: any) => {
+    setMessage(e.currentTarget.value);
+
+    socket.emit('typing', username);
+    if (e.currentTarget.value === '') {
+      setTyping('');
+    }
+  };
+
+  useEffect(() => {
+    socket.on('isTyping', (message: any) => {
+      setTyping(message.message);
+    });
+    setTyping('');
   }, []);
 
   // getting sent messages
@@ -49,27 +60,32 @@ function Chat() {
   }, []);
 
   useEffect(() => {
-    socket.on('users.ts', (u: any) => {
+    socket.on('users', (u: any) => {
       setUsers(u);
-      console.log('users.ts');
+      console.log('users');
     });
   }, []);
 
   useEffect(() => {
-    fetch('http://localhost:5000/getcreds', {
-      method: 'GET',
+    console.log(user);
+    fetch('http://localhost:5000/username', {
+      method: 'POST',
       credentials: 'include',
+      body: JSON.stringify({ uid: user }),
       headers: {
         'Content-Type': 'application/json',
       },
-    });
-  });
+    })
+      .then((res) => res.json())
+      .then((data) => setUsername(data.username));
+  }, [user]);
 
   // sending new messages
   const sendMessage = () => {
     if (message !== '') {
-      socket.emit('message', { message, username: myUsername });
+      socket.emit('message', { message, username });
       setMessage('');
+      setTyping('');
     }
   };
 
@@ -101,7 +117,7 @@ function Chat() {
             <button onClick={handleLogout}>
               {<BiLogOut size={24} color="white" />}
             </button>
-            <h2 className="text-white font-medium">{user}</h2>
+            <h2 className="text-white font-medium">{username}</h2>
           </div>
         </div>
         <div className="bg-gray-500 flex-1 flex justify-between">
@@ -113,6 +129,9 @@ function Chat() {
                   <p className="text-gray-300">{msg.message}</p>
                 </div>
               ))}
+            </div>
+            <div className="flex flex-row pl-3 text-gray-400">
+              <h2>{typing && `${typing}`}</h2>
             </div>
             <div className="bg-gray-500 flex flex-row">
               <input
@@ -131,7 +150,7 @@ function Chat() {
             <h1 className="text-white font-medium text-2xl pl-2 pt-2">Users</h1>
             {users.map((user) => (
               <div className="p-2">
-                <h4 className="text-white">{user}</h4>
+                <h4 className="text-white">{username}</h4>
               </div>
             ))}
           </div>
