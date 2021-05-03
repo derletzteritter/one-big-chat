@@ -21,7 +21,7 @@ function App() {
     })
       .then((res) => res.json())
       .then((data) => setUser(data.user));
-  }, []);
+  }, [setUser]);
 
   // Should probably do this somewhere else later.
 
