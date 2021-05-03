@@ -5,6 +5,7 @@ import {
   handleLogin,
   handleUser,
   handleLogout,
+  handleUsername,
 } from './controller/authController';
 
 export const router = Router();
@@ -13,3 +14,4 @@ router.post('/signup', handleSignup);
 router.post('/login', handleLogin);
 router.post('/user', handleUser);
 router.get('/logout', handleLogout);
+router.post('/username', handleUsername);
