@@ -32,7 +32,6 @@ export const getUser = async (id: number): Promise<any> => {
   const user = users[0];
   return user;
 };
-
 export const createLogin = async (
   username: string,
   password: string,

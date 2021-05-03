@@ -6,6 +6,7 @@ import { createLogin, createUser } from '../services/user';
 import jwt, { JsonWebTokenError } from 'jsonwebtoken';
 import { getCredentials } from '../lib/user';
 import { ReplSet } from 'typeorm';
+import { RSA_NO_PADDING } from 'node:constants';
 
 export const handleSignup = async (req: Request, res: Response) => {
   const { username, password } = req.body;
@@ -53,8 +54,20 @@ export const handleUser = async (req: Request, res: Response) => {
   if (token) {
     jwt.verify(token, 'bigchatsmallchat', async (err: any, dToken: any) => {
       console.log(dToken);
-      //const user = await getCredentials(dToken.uid);
       res.status(200).json({ user: dToken.uid });
     });
+  }
+};
+
+export const handleUsername = async (req: Request, res: Response) => {
+  const { uid } = req.body;
+  console.log('UID: ', uid);
+
+  if (uid) {
+    const username = await getCredentials(uid);
+    if (username) {
+      console.log(username);
+      res.status(200).json({ username });
+    }
   }
 };
