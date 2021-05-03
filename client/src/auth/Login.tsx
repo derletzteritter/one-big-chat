@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useAuth } from './hooks/useAuth';
 
@@ -48,7 +48,7 @@ function Login() {
           type="password"
         />
         <button
-          className="text-white p-2 rounded mt-4 bg-indigo-500 hover:bg-indigo-400 outline-none font-medium"
+          className="text-white p-2 rounded mt-4 bg-indigo-600 hover:bg-indigo-500 outline-none font-medium"
           onClick={handleLogin}
         >
           Login
@@ -56,7 +56,7 @@ function Login() {
         <p className="text-white mt-3">
           Don't have an account?
           <span
-            className="text-indigo-500 font-medium cursor-pointer"
+            className="text-indigo-500 font-medium cursor-pointer select-none"
             onClick={() => history.push('/signup')}
           >
             {' '}

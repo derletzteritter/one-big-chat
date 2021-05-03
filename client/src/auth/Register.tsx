@@ -48,7 +48,7 @@ function Register() {
           type="password"
         />
         <button
-          className="text-white p-2 rounded mt-4 bg-indigo-500 hover:bg-indigo-400 outline-none font-medium"
+          className="text-white p-2 rounded mt-4 bg-indigo-600 hover:bg-indigo-500 outline-none font-medium"
           onClick={handleRegister}
         >
           Register
@@ -56,7 +56,7 @@ function Register() {
         <p className="text-white mt-3">
           Already have an account?
           <span
-            className="text-indigo-500 font-medium cursor-pointer"
+            className="text-indigo-500 font-medium cursor-pointer select-none"
             onClick={() => history.push('/')}
           >
             {' '}
