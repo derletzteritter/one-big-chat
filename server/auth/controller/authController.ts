@@ -52,7 +52,6 @@ export const handleUser = async (req: Request, res: Response) => {
 
   if (token) {
     jwt.verify(token, 'bigchatsmallchat', async (err: any, dToken: any) => {
-      console.log(dToken);
       res.status(200).json({ user: dToken.uid });
     });
   }
@@ -60,12 +59,10 @@ export const handleUser = async (req: Request, res: Response) => {
 
 export const handleUsername = async (req: Request, res: Response) => {
   const { uid } = req.body;
-  console.log('UID: ', uid);
 
   if (uid) {
     const username = await getCredentials(uid);
     if (username) {
-      console.log(username);
       res.status(200).json({ username });
     }
   }
