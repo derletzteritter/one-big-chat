@@ -45,7 +45,6 @@ export const handleLogout = (req: Request, res: Response) => {
     maxAge: 1,
   });
   res.status(200).json({ user: 'helllo' });
-  res.redirect('/');
 };
 
 export const handleUser = async (req: Request, res: Response) => {
