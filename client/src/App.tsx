@@ -17,7 +17,7 @@ function App() {
   // check if the user has a token
   useEffect(() => {
     fetch('http://localhost:5000/user', {
-      method: 'POST',
+      method: 'GET',
       credentials: 'include',
     })
       .then((res) => res.json())
