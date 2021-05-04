@@ -24,8 +24,6 @@ function App() {
       .then((data) => setUser(data.user));
   }, [setUser]);
 
-  // Should probably do this somewhere else later.
-
   return (
     <div>
       <Router>
