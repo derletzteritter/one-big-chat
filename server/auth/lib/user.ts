@@ -1,10 +1,6 @@
 import { User } from '../../typings/user';
 import { promisePool } from '../../utils/db';
 
-export const checkUser = async () => {
-  return 'username';
-};
-
 export const getCredentials = async (uid: string): Promise<string> => {
   const [
     results,
