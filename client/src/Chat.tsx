@@ -13,6 +13,7 @@ function Chat() {
   const [username, setUsername] = useState('');
   const [typing, setTyping] = useState('');
   const { user } = useAuth();
+  const history = useHistory();
 
   const messageEndRef = useRef(null);
 
@@ -104,6 +105,9 @@ function Chat() {
       <div className="bg-gray-900 flex pt-2 pb-2">
         <div className="text-white font-semibold text-2xl pl-3 w-56 flex-none">
           One Big Chat
+        </div>
+        <div className="text-white font-semibold text-1xl pt-1 w-56 flex-none">
+          <button onClick={() => history.push('/video')}>Video</button>
         </div>
       </div>
       <div className="flex-1 bg-blue-500 flex overflow-y-hidden">
