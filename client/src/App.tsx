@@ -9,6 +9,7 @@ import { useAuth } from './auth/hooks/useAuth';
 import Login from './auth/Login';
 import Register from './auth/Register';
 import Chat from './Chat';
+import VideoChat from './video/VideoChat';
 
 function App() {
   const { user, setUser } = useAuth();
@@ -38,6 +39,7 @@ function App() {
           ) : (
             <div>
               <Route path="/chat" exact component={Chat} />
+              <Route path="/video" component={VideoChat} />
               <Redirect to="/chat" />
             </div>
           )}
