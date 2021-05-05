@@ -37,7 +37,7 @@ function App() {
           ) : (
             <div>
               <Route path="/chat" exact component={Chat} />
-              <Route path="/video" component={VideoChat} />
+              <Route path="/video" exact component={VideoChat} />
               <Redirect to="/chat" />
             </div>
           )}
