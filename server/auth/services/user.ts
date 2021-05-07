@@ -44,10 +44,14 @@ export const createLogin = async (
   ]);
   const result = <User[]>results;
   const user = result[0];
-  const resultPass = await bcrypt.compare(password, user.password);
 
-  if (resultPass) {
-    return user;
+  if (user) {
+    const resultPass = await bcrypt.compare(password, user.password);
+    if (resultPass) {
+      return user;
+    } else {
+      return null;
+    }
   } else {
     return null;
   }

@@ -26,11 +26,12 @@ export const handleSignup = async (req: Request, res: Response) => {
 
 export const handleLogin = async (req: Request, res: Response) => {
   const { username, password } = req.body;
+  console.log(username, password);
   try {
     const user = await createLogin(username, password);
 
     if (user == null) {
-      res.status(400).json({ message: 'Failed to login' });
+      res.status(400).json({ message: 'Username or password is wrong' });
     }
 
     const token = createToken(user.uid);
