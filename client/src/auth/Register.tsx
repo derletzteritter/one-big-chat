@@ -23,7 +23,7 @@ function Register() {
 
     if (data.error) {
       console.log(data.error);
-      setMessage(data.message);
+      setMessage(data.error);
     }
 
     if (data.user) {
@@ -53,6 +53,9 @@ function Register() {
           className="p-2 rounded mt-4 font-regular outline-none text-gray-500"
           type="password"
         />
+        <div className="pt-3">
+          <p className="text-red-500">{message}</p>
+        </div>
         <button
           className="text-white p-2 rounded mt-4 bg-indigo-600 hover:bg-indigo-500 outline-none font-medium"
           onClick={handleRegister}
