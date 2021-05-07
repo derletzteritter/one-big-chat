@@ -5,6 +5,7 @@ import { useAuth } from './hooks/useAuth';
 function Register() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
   const history = useHistory();
   const { user, setUser } = useAuth();
 
@@ -20,7 +21,12 @@ function Register() {
     const data = await res.json();
     console.log('USER: ', data.user);
 
-    if (data) {
+    if (data.error) {
+      console.log(data.error);
+      setMessage(data.message);
+    }
+
+    if (data.user) {
       setUser(data.user);
       history.push('/chat');
       console.log(user);
