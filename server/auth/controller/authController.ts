@@ -2,23 +2,33 @@ import { NextFunction, Request, Response } from 'express';
 import { User } from '../../typings/user';
 import { promisePool } from '../../utils/db';
 import { createToken, maxAge } from '../lib/tokens';
-import { createLogin, createUser } from '../services/user';
+import { createLogin, createUser, doesUserExist } from '../services/user';
 import jwt, { JsonWebTokenError } from 'jsonwebtoken';
 import { getCredentials } from '../lib/user';
-import { ReplSet } from 'typeorm';
-import { RSA_NO_PADDING } from 'node:constants';
 
-export const handleSignup = async (req: Request, res: Response) => {
+export const handleSignup = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   const { username, password } = req.body;
   try {
-    const user = await createUser(username, password);
+    const userExsists = await doesUserExist(username);
+    console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
+    console.log('user: ', userExsists);
 
-    const token = createToken(user.uid);
-    res.cookie('onebigchat', token, {
-      httpOnly: true,
-      maxAge: maxAge * 1000,
-    });
-    res.status(200).json({ user: user.uid });
+    if (!userExsists) {
+      const user = await createUser(username, password);
+
+      const token = createToken(user.uid);
+      res.cookie('onebigchat', token, {
+        httpOnly: true,
+        maxAge: maxAge * 1000,
+      });
+      res.status(200).json({ user: user.uid });
+    } else {
+      res.status(400).json({ error: 'Username is already taken' });
+    }
   } catch (err) {
     console.log(err.message);
   }

@@ -33,6 +33,22 @@ export const getUser = async (id: number): Promise<any> => {
   return user;
 };
 
+export const doesUserExist = async (
+  username: string,
+): Promise<string | null> => {
+  console.log('does user exsist: ', username);
+  const query = `SELECT * FROM users WHERE username = ?`;
+  const [results] = await promisePool.query(query, [username]);
+  const result = <any[]>results;
+  console.log('RESULT: ', result);
+
+  if (result[0] == undefined) {
+    return null;
+  } else {
+    return result[0].username;
+  }
+};
+
 export const createLogin = async (
   username: string,
   password: string,
