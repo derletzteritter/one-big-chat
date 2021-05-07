@@ -29,6 +29,10 @@ export const handleLogin = async (req: Request, res: Response) => {
   try {
     const user = await createLogin(username, password);
 
+    if (user == null) {
+      res.status(400).json({ message: 'Failed to login' });
+    }
+
     const token = createToken(user.uid);
     res.cookie('onebigchat', token, {
       httpOnly: true,

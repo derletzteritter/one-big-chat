@@ -32,10 +32,11 @@ export const getUser = async (id: number): Promise<any> => {
   const user = users[0];
   return user;
 };
+
 export const createLogin = async (
   username: string,
   password: string,
-): Promise<User> => {
+): Promise<User | null> => {
   const [
     results,
   ] = await promisePool.query(`SELECT * FROM users WHERE username = ?`, [
@@ -48,6 +49,6 @@ export const createLogin = async (
   if (resultPass) {
     return user;
   } else {
-    return user;
+    return null;
   }
 };
