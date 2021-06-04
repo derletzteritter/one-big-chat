@@ -19,17 +19,14 @@ function Register() {
       },
     });
     const data = await res.json();
-    console.log('USER: ', data.user);
 
     if (data.error) {
-      console.log(data.error);
       setMessage(data.error);
     }
 
     if (data.user) {
       setUser(data.user);
       history.push('/chat');
-      console.log(user);
     }
   };
 

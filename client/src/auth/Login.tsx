@@ -19,18 +19,15 @@ function Login() {
       },
     });
     const data = await res.json();
-    console.log(data);
     console.log('USER: ', data.user);
 
     if (data.user == null) {
-      console.log(data.message);
       setMessage(data.message);
     }
 
     if (data.user) {
       setUser(data.user);
       history.push('/chat');
-      console.log(user);
     }
   };
 
