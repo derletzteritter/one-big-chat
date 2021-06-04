@@ -38,10 +38,11 @@ function Chat() {
   const handleMesssageChange = (e: any) => {
     setMessage(e.currentTarget.value);
 
-    socket.emit('typing', username);
+    // heh
+    /*socket.emit('typing', username);
     if (e.currentTarget.value === '') {
       setTyping('');
-    }
+    }*/
   };
 
   useEffect(() => {
@@ -54,7 +55,6 @@ function Chat() {
   // getting sent messages
   useEffect(() => {
     socket.on('chatMessage', (msg: any) => {
-      console.log('messages');
       setMessages((msgs) => [...msgs, msg]);
       messageEndRef.current.scrollIntoView({ behavior: 'smooth' });
     });
@@ -63,7 +63,6 @@ function Chat() {
   useEffect(() => {
     socket.on('users', (u: any) => {
       setUsers(u);
-      console.log('users');
     });
   }, []);
 
